@@ -8,7 +8,7 @@ help:
 	@echo "  Download dependencies and build frontend compiler container"
 	@echo
 	@echo "make build"
-	@echo "  Compile the front-end and start the backend on localhost"
+	@echo "  Compile the front-end and start the backend"
 
 
 deps:
