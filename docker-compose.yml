@@ -1,0 +1,24 @@
+networks:
+    webmenu:
+        external: false
+
+services:
+    webmenu_db:
+        image: mongo
+        container_name: webmenu_db
+        networks:
+            - webmenu
+        restart: unless-stopped
+        ports:
+            - 127.0.0.1:27017:27017
+        volumes:
+            - ${DATA_ROOT}/db:/data/db
+
+    webmenu_api:
+        build: backend
+        image: webmenu_api
+        container_name: webmenu_api
+        networks:
+            - webmenu
+        volumes:
+            - ${DATA_ROOT}/server:/data
