@@ -35,6 +35,12 @@ async function UpdateItems() {
     const categories = Array.from(categorySet);
     categories.sort();
 
+    for (const container of document.querySelectorAll(".recipes") as NodeListOf<HTMLDivElement>) {
+        if (!categorySet.has(container.dataset.category)) {
+            container.remove();
+        }
+    }
+
     const containers: { [id: string]: HTMLDivElement } = {};
     for (const category of categories) {
         let categoryContainer = document.querySelector(`[data-category="${category}"]`) as HTMLDivElement;
@@ -42,6 +48,12 @@ async function UpdateItems() {
             categoryContainer = document.createElement("div");
             categoryContainer.classList.add("recipes");
             categoryContainer.dataset.category = category;
+            if (category) {
+                const label = document.createElement("h2");
+                label.classList.add("categoryLabel");
+                label.textContent = category;
+                categoryContainer.appendChild(label);
+            }
         }
         containers[category] = categoryContainer;
         document.body.appendChild(categoryContainer);
@@ -103,6 +115,7 @@ window.addEventListener("load", async () => {
     });
 
     const mealSelect = document.getElementById("meal") as HTMLSelectElement;
+    const recipeCategory = document.getElementById("recipeCategory") as HTMLInputElement;
     const recipeName = document.getElementById("recipeName") as HTMLInputElement;
 
     const addRecipe = document.getElementById("addRecipe") as HTMLButtonElement;
@@ -110,7 +123,7 @@ window.addEventListener("load", async () => {
         if (recipeName.value.length == 0) {
             return;
         }
-        const item: Item = { name: recipeName.value, allowed: false, selected: false, category: "" };
+        const item: Item = { name: recipeName.value, allowed: false, selected: false, category: recipeCategory.value };
         await PostItem(item);
         await UpdateItems();
     });

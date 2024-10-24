@@ -42,6 +42,12 @@ body {
     margin: 4px;
 }
 
+.categoryLabel {
+    width: 100%;
+    text-align: center;
+    margin-bottom: 0;
+}
+
 .recipes {
     display: flex;
     flex-flow: row wrap;
