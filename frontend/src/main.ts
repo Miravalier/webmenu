@@ -26,11 +26,31 @@ function SetContents(recipeElement: HTMLDivElement, item: Item) {
 
 
 async function UpdateItems() {
-    const recipesContainer = document.querySelector(".recipes") as HTMLDivElement;
+    const items = await ListItems();
 
-    for (const item of await ListItems()) {
+    const categorySet: Set<string> = new Set();
+    for (const item of items) {
+        categorySet.add(item.category);
+    }
+    const categories = Array.from(categorySet);
+    categories.sort();
+
+    const containers: { [id: string]: HTMLDivElement } = {};
+    for (const category of categories) {
+        let categoryContainer = document.querySelector(`[data-category="${category}"]`) as HTMLDivElement;
+        if (!categoryContainer) {
+            categoryContainer = document.createElement("div");
+            categoryContainer.classList.add("recipes");
+            categoryContainer.dataset.category = category;
+        }
+        containers[category] = categoryContainer;
+        document.body.appendChild(categoryContainer);
+    }
+
+    for (const item of items) {
+        const container = containers[item.category];
         // Get existing Recipe Element or create new one
-        let recipeElement = recipesContainer.querySelector(`[data-id="${item.id}"]`) as HTMLDivElement;
+        let recipeElement = document.querySelector(`[data-id="${item.id}"]`) as HTMLDivElement;
         if (!recipeElement) {
             recipeElement = document.createElement("div");
             recipeElement.classList.add("recipe");
@@ -62,7 +82,7 @@ async function UpdateItems() {
         // Set element contents
         SetContents(recipeElement, item);
         // Move element to end of list
-        recipesContainer.appendChild(recipeElement);
+        container.appendChild(recipeElement);
     }
 }
 
@@ -82,24 +102,31 @@ window.addEventListener("load", async () => {
         ev.preventDefault();
     });
 
+    const mealSelect = document.getElementById("meal") as HTMLSelectElement;
     const recipeName = document.getElementById("recipeName") as HTMLInputElement;
+
     const addRecipe = document.getElementById("addRecipe") as HTMLButtonElement;
     addRecipe.addEventListener("click", async () => {
         if (recipeName.value.length == 0) {
             return;
         }
-        const item: Item = { name: recipeName.value, allowed: false, selected: false };
+        const item: Item = { name: recipeName.value, allowed: false, selected: false, category: "" };
         await PostItem(item);
         await UpdateItems();
+    });
+
+    const sendMessage = document.getElementById("sendMessage") as HTMLButtonElement;
+    sendMessage.addEventListener("click", async () => {
+        await ApiRequest("POST", `/message?meal=${mealSelect.value}`);
     });
 
     // Update items on page load
     await UpdateItems();
 
-    // Start updating items every 15 seconds
+    // Start updating items every 5 seconds
     setInterval(() => {
         UpdateItems();
-    }, 15000);
+    }, 5000);
 
     console.log("Page loaded.");
 });

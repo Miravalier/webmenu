@@ -14,7 +14,8 @@ label {
 
 button,
 button i,
-input {
+input,
+select {
     color: black;
 }
 
@@ -30,6 +31,17 @@ body {
     align-items: center;
 }
 
+.row {
+    display: flex;
+    flex-flow: row wrap;
+    justify-content: center;
+    align-items: center;
+}
+
+.row>* {
+    margin: 4px;
+}
+
 .recipes {
     display: flex;
     flex-flow: row wrap;
@@ -38,11 +50,12 @@ body {
 }
 
 .recipe {
-    margin: 12px;
-    padding: 8px;
+    margin: 8px;
+    padding: 4px;
     border: 2px solid white;
     border-radius: 8px;
     text-align: center;
     user-select: none;
     cursor: pointer;
+    width: 140px;
 }

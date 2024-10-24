@@ -3,4 +3,5 @@ export interface Item {
     name: string;
     allowed: boolean;
     selected: boolean;
+    category: string;
 }

@@ -23,4 +23,7 @@ services:
         volumes:
             - ${DATA_ROOT}/server:/data
         environment:
+            - BOT_TOKEN=${BOT_TOKEN}
+            - RECIPIENT_ID=${RECIPIENT_ID}
+            - WEBHOOK_URL=${WEBHOOK_URL}
             - AUTH_TOKEN=${AUTH_TOKEN}
