@@ -4,6 +4,7 @@ export default {
         rollupOptions: {
             input: {
                 main: '/main.html',
+                login: '/login.html',
             },
         },
         commonjsOptions: {

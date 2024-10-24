@@ -8,10 +8,41 @@
     font-family: "Noto Sans", sans-serif;
 }
 
+label {
+    font-weight: bold;
+}
+
+button,
+button i,
+input {
+    color: black;
+}
+
 html {
     height: 100%;
 }
 
 body {
     background: #2b2d2e;
+    display: flex;
+    flex-flow: column nowrap;
+    justify-content: center;
+    align-items: center;
+}
+
+.recipes {
+    display: flex;
+    flex-flow: row wrap;
+    align-items: center;
+    justify-content: center;
+}
+
+.recipe {
+    margin: 12px;
+    padding: 8px;
+    border: 2px solid white;
+    border-radius: 8px;
+    text-align: center;
+    user-select: none;
+    cursor: pointer;
 }

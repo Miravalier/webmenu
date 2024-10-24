@@ -22,3 +22,5 @@ services:
             - "${HTTP_PORT}:80"
         volumes:
             - ${DATA_ROOT}/server:/data
+        environment:
+            - AUTH_TOKEN=${AUTH_TOKEN}

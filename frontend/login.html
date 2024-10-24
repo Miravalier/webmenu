@@ -6,22 +6,17 @@
     <meta name="viewport"
         content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no" />
 
-    <title>Web Menu</title>
+    <title>Web Menu - Login</title>
     <link rel="stylesheet" href="./src/css/main.css">
     <link rel="icon" href="logo.png" type="image/png">
     <script src="https://kit.fontawesome.com/9fd24668c8.js" crossorigin="anonymous"></script>
-    <script src="./src/main.ts" type="module"></script>
+    <script src="./src/login.ts" type="module"></script>
 </head>
 
 <body>
-    <h1>Recipes</h1>
-    <div class="row">
-        <label>Name</label>
-        <input type="text" id="recipeName" />
-        <button type="button" id="addRecipe"><i class="fa-solid fa-plus"></i> Add Recipe</button>
-    </div>
-    <p>Left-click to select a recipe. Right-click a recipe to delete it.</p>
-    <div class="recipes"></div>
+    <label>Token</label>
+    <input type="text" id="token" />
+    <button type="button" id="login">Login</button>
 </body>
 
 </html>
